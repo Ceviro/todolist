@@ -1,0 +1,28 @@
+<div class="container-fluid">
+
+<table class="table">
+  <thead>
+    
+      <thead>
+  <% @todos.each do |todo| %>
+    <tr>
+      <td>
+        <%= form_for(todo, url: toggle_check_todo_path(todo), method: :patch) do |f| %>
+          <%= f.check_box :check, { class: "check-box", onchange: "this.form.submit()" } %>
+        <% end %>
+      </td>
+      <td>
+        <a class="navbar-brand" href="<%= todo_path(todo) %>"><%= todo.task %></a>
+      </td>
+      <td>
+  
+      </td>
+  </tr>
+  <% end %>  
+</tbody>
+</table>
+
+
+
+<!--<%= link_to "Back", root_path %> back  button-->
+</div>
