@@ -58,11 +58,16 @@ class TodosController < ApplicationController
     end
   end
 
-
 def toggle_check
   @todo = Todo.find(params[:id])
-  @todo.toggle_check!
-  redirect_to root_path
+
+  if @todo.toggle_check!
+    render json: { success: true, checked: @todo.check }
+  else
+    errors = @todo.errors.full_messages
+    logger.error("Toggle Check Failed: #{errors.join(', ')}")
+    render json: { success: false, errors: errors }, status: :unprocessable_entity
+  end
 end
 
   private
